@@ -14,14 +14,15 @@ public class RadixTester {
     nums.add(13) ;
     nums.add(619) ;
     nums.add(526) ;
-    SortableLinkedList[] test = new SortableLinkedList[2] ;
-    for (int i=0; i<2; i++) {
+    SortableLinkedList[] test = new SortableLinkedList[3] ;
+    for (int i=0; i<3; i++) {
       test[i] = new SortableLinkedList() ;
     }
-    System.out.println(test[1].size()) ;
+    test[0].add(1) ;
+    test[1] = test[0] ;
+    test[2].add(142) ;
     Radix.merge(nums,test) ;
     System.out.println(nums.toString()) ;
-    System.out.println(nums.size()) ;
     Radix.radixSortSimple(nums) ;
     System.out.println(nums.toString()) ;
   }
