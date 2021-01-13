@@ -26,6 +26,10 @@ public class RadixTester {
     System.out.println(nums.toString()) ;
     Radix.radixSortSimple(nums) ;
     System.out.println(nums.toString()) ;
+    int c = -910 ;
+    System.out.println(Radix.length(c)) ;
+    System.out.println(c) ;
+    System.out.println(Radix.nth(c,2)) ;
   }
 
 }
