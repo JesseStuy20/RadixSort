@@ -23,7 +23,7 @@ public class Radix {
   }
 
   public static void radixSortSimple(SortableLinkedList data) {
-    int largestNum = data.get(0) ;
+    int largestNum = Math.abs(data.get(0)) ;
     for (int i=0; i<length(largestNum); i++) { //digits
       SortableLinkedList[] a = new SortableLinkedList[10] ;
       int dataSize = data.size() ;
@@ -31,7 +31,7 @@ public class Radix {
         a[j] = new SortableLinkedList() ;
       }
       for (int j=0; j<data.size(); j++) { //node
-        if (data.get(j) > largestNum) largestNum = data.get(j) ;
+        if (Math.abs(data.get(j)) > largestNum) largestNum = data.get(j) ;
         int b = nth(data.get(j),i) ;
         a[b].add(data.get(j)) ;
       }
@@ -40,6 +40,27 @@ public class Radix {
         data.remove(0) ;
       }
     }
+  }
+
+  public static void radixSort(SortableLinkedList data) {
+    SortableLinkedList positive = new SortableLinkedList() ;
+    SortableLinkedList negative = new SortableLinkedList() ;
+    int dataSize = data.size() ;
+    for (int i=0; i<dataSize; i++) {
+      if (data.get(0) >= 0) {
+        positive.add(data.get(0)) ;
+      }
+      else {
+        negative.add(data.get(0) * -1) ;
+      }
+      data.remove(0) ;
+    }
+    if (positive.size() > 0) radixSortSimple(positive) ;
+    if (negative.size() > 0) radixSortSimple(negative) ;
+    for (int i=negative.size()-1; i>-1; i--) {
+      data.add(negative.get(i) * -1) ;
+    }
+    data.extend(positive) ;
   }
 
 }
