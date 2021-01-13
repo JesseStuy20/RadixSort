@@ -19,9 +19,10 @@ public class RadixTester {
       test[i] = new SortableLinkedList() ;
     }
     test[0].add(1) ;
-    test[1] = test[0] ;
+    test[1].add(2) ;
     test[2].add(142) ;
     Radix.merge(nums,test) ;
+    System.out.println(Radix.length(910)) ;
     System.out.println(nums.toString()) ;
     Radix.radixSortSimple(nums) ;
     System.out.println(nums.toString()) ;
