@@ -1,19 +1,16 @@
 public class Radix {
 
   public static int nth(int n, int col) {
-    if (n < 0) n = n*-1 ;
+    // if (n < 0) n = n*-1 ;
     int divisor = (int) Math.pow(10,col+1) ;
     int returnValue = n % divisor ;
     return (returnValue / (divisor/10)) ;
   }
 
   public static int length(int n) {
-    if (n < 0) n = n*-1 ;
-    int returnValue = 1 ;
-    for (int i=n; i>10; i=i/10) {
-      returnValue++ ;
-    }
-    return returnValue ;
+    if (n == 0) return 1 ;
+    if (n < 0) n *= -1 ;
+    return ((int) Math.log10(n) + 1) ;
   }
 
   public static void merge(SortableLinkedList original, SortableLinkedList[] buckets) {
@@ -24,16 +21,16 @@ public class Radix {
 
   public static void radixSortSimple(SortableLinkedList data) {
     int largestNum = Math.abs(data.get(0)) ;
+    SortableLinkedList[] a = new SortableLinkedList[10] ;
+    for (int i=0; i<10; i++) {
+      a[i] = new SortableLinkedList() ;
+    }
     for (int i=0; i<length(largestNum); i++) { //digits
-      SortableLinkedList[] a = new SortableLinkedList[10] ;
-      int dataSize = data.size() ;
-      for (int j=0; j<10; j++) {
-        a[j] = new SortableLinkedList() ;
-      }
       for (int j=0; j<data.size(); j++) { //node
-        if (Math.abs(data.get(j)) > largestNum) largestNum = data.get(j) ;
-        int b = nth(data.get(j),i) ;
-        a[b].add(data.get(j)) ;
+        int temp = data.get(j) ;
+        if (Math.abs(temp) > largestNum) largestNum = temp ;
+        int b = nth(temp,i) ;
+        a[b].add(temp) ;
       }
       merge(data,a) ;
       for (int j=0; j<data.size();j++) {
@@ -63,4 +60,25 @@ public class Radix {
     data.extend(positive) ;
   }
 
+/*
+  public static void radixSort(SortableLinkedList data) {
+    int largestNum = Math.abs(data.get(0)) ;
+    SortableLinkedList[] a = new SortableLinkedList[20] ;
+    for (int i=0; i<20; i++) {
+      a[i] = new SortableLinkedList() ;
+    }
+    for (int i=0; i<length(largestNum); i++) { //digits
+      for (int j=0; j<data.size(); j++) { //node
+        int temp = data.get(j) ;
+        if (Math.abs(temp) > largestNum) largestNum = temp ;
+        int b = nth(temp,i) + 10 ;
+        a[b].add(temp) ;
+      }
+      merge(data,a) ;
+      for (int j=0; j<data.size();j++) {
+        data.remove(0) ;
+      }
+    }
+  }
+*/
 }
